@@ -32,6 +32,15 @@ echo "set fileencodings=utf-8,gbk">>.vimrc
 echo "set encoding=euc-cn">>.vimrc
 echo "set ambiwidth=double">>.vimrc
 
+# install git
+echo "====== begin to install git ======"
+if [ -x "/usr/bin/git" ];then
+	echo "git already exists"
+else
+	yum -y install git
+fi
+echo "git install finished"
+
 # install locate tool 
 echo "====== begin to install locate ======"
 if [ -x "/usr/bin/locate" ]
