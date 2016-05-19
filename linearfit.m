@@ -1,20 +1,38 @@
-function [a0 a1]=linearfit(x, y, whetherplot)
+function beta = linearfit(x, y, rank, whetherplot)
 % x and y are coloumn vectors
+close all;
 
-n = length(y);
+%% pre-judge
+[rx cx] = size(x);
+[ry cy] = size(y);
 
-if length(x) ~= n
-    display('unmatched length');
+if rx ~= ry
+    display('not equal dimension');
+    return;
 end
 
-a1 = (n*x'*y-sum(x)*sum(y))/(n*sum(x.^2)-sum(x)*sum(x));
-a0 = sum(y)/n-a1*sum(x)/n;
+n = rx;
 
+%% generate X matrix
+xx = zeros(rx,1);
+for i = 0:rank-1
+    tmpx = x.^i;
+    xx = [xx tmpx];
+end
+
+%% qr
+[Q R] = qr(xx);
+
+%% get coefficient vector
+beta = R\(Q\y);
+
+%% plot
 if whetherplot > 0
+    yy = xx*beta;
+    
     figure;
     scatter(x,y);
     hold on;
-    yy = a0 + a1*x;
     plot(x,yy,'linewidth', 2);
     hold off;
 end
