@@ -4,13 +4,6 @@ from urllib import request
 import os
 import re
 
-class Song:
-    def __init__(self):
-        self.name = ''
-        self.url = ''
-        self.date = ''
-
-
 def Schedule(a, b, c):
     '''
     a:已经下载的数据块
@@ -22,7 +15,7 @@ def Schedule(a, b, c):
 
 
 def downloadSong(songSourceUrl, songName, localDir):
-    fileName = songName + '.mp3'
+    fileName = songName
     localPath = os.path.join(localDir, fileName)
 
     urllib.request.urlretrieve(songSourceUrl, localPath, Schedule)
@@ -43,18 +36,16 @@ def getSongSourceUrl(songPageUrl):
         return -1
 
     sourcePatten = re.compile(r'http://qiniuuwmp3.changba.com/[0-9]+.mp3')
-    return sourcePatten.search(pageContent).group()
+    songSourceUrl = sourcePatten.search(pageContent)
+    if songSourceUrl == None:
+        return -1
+    else:
+        return songSourceUrl.group(0)
 
 
 def getMP3(homePageURL, localDir):
-    fileList = os.listdir(localDir)
-    if len(fileList) > 0:
-        localSongList = []
-        for i in fileList:
-            songTmp = Song()
-            songTmp.name = i.split('.')[0]
-            localSongList.append(songTmp)
-        # print(fileList)
+    localfileList = os.listdir(localDir)
+    # print(localfileList)
 
     homePageWB = urllib.request.urlopen(homePageURL)
     homePageContent = homePageWB.read().decode('utf-8')
@@ -65,10 +56,11 @@ def getMP3(homePageURL, localDir):
         xx = x.split('"')
 
         songPageUrl = 'http://changba.com' + xx[1]
-        songName = xx[6].replace('\n','').replace('\t','').replace('\r','').replace('<','').replace('>','')
+        songName = xx[6].replace('\n','').replace('\t','').replace('\r','').replace('<','').replace('>','') + '.mp3'
         # print(songPageUrl + ' ' + songName)
         
-        if songName in localSongList:
+        if songName in localfileList:
+            print(songName + ' exists')
             continue
 
         songSourceUrl = getSongSourceUrl(songPageUrl)
