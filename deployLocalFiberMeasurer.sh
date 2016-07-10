@@ -2,15 +2,21 @@ cd ~/Desktop
 
 rm -rf bccAndroidController.zip
 
-zip -r bccAndroidController.zip ~/Desktop/bccAndroidController
+zip -q -r bccAndroidController.zip ~/Desktop/bccAndroidController
 
 mkdir tmptmp
 
 cd tmptmp
 
-git clone git@github.com:ChinoMars/bccAndroidController.git
+git clone https://github.com/ChinoMars/bccAndroidController.git
 
-mv -f * ~/Desktop/bccAndroidController
+cd ~/Desktop/bccAndroidController
+
+rm -rf res libs assets src
+
+cd ~/Desktop/tmptmp/bccAndroidController
+
+mv -f ./* ~/Desktop/bccAndroidController
 
 cd ~/Desktop
 
