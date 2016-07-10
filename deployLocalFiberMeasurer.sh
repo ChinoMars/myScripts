@@ -1,5 +1,7 @@
 cd ~/Desktop
 
+rm -rf bccAndroidViewer.zip
+
 zip -r bccAndroidViewer.zip ~/Desktop/bccAndroidViewer
 
 mkdir tmptmp
