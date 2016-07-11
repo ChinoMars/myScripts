@@ -12,11 +12,15 @@ git clone https://github.com/ChinoMars/bccAndroidController.git
 
 cd ~/Desktop/bccAndroidController
 
+cp ./src/com/chinomars/bccAndroidViewerCommon/Common.java ~/Desktop/Common.java
+
 rm -rf res libs assets src
 
 cd ~/Desktop/tmptmp/bccAndroidController
 
 mv -f ./* ~/Desktop/bccAndroidController
+
+mv ~/Desktop/Common.java ~/Desktop/bccAndroidController/src/com/chinomars/bccAndroidViewerCommon/Common.java
 
 cd ~/Desktop
 
