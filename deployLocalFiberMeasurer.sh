@@ -22,6 +22,10 @@ mv -f ./* ~/Desktop/bccAndroidController
 
 mv ~/Desktop/Common.java ~/Desktop/bccAndroidController/src/com/chinomars/bccAndroidViewerCommon/Common.java
 
+cd ~/Desktop/bccAndroidController
+
+rm -rf README.md
+
 cd ~/Desktop
 
 rm -rf tmptmp
